@@ -1,4 +1,7 @@
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaPlay, FaRegCalendarAlt, FaShareAlt } from "react-icons/fa";
+import { FiLogIn } from "react-icons/fi";
+import { IoMdTime } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 export default function MovieInfo({ movie }) {
@@ -29,18 +32,63 @@ export default function MovieInfo({ movie }) {
               {/* Flex Item */}
               <div className="flex items-center gap-4 font-medium text-dryGray">
                 <div className="flex-colo bg-subMain text-xs px-2 py-1">
-                    HD 4K
+                  HD 4K
                 </div>
                 <div className="flex gap-5 items-center text-dryGray">
-                <div className="flex item-center gap-2">
-                  <span className="text-sm font-medium">{movie.category}</span>
-                </div>
-                <div className="flex item-center gap-2">
-                  <FaRegCalendarAlt className="text-subMain w-3 h-3" />
-                  <span className="text-sm font-medium">{movie.year}</span>
+                  <div className="flex item-center gap-2">
+                    <span className="text-sm font-medium">
+                      {movie.category}
+                    </span>
+                  </div>
+                  <div className="flex item-center gap-2">
+                    <FaRegCalendarAlt className="text-subMain w-3 h-3" />
+                    <span className="text-sm font-medium">{movie.year}</span>
+                  </div>
+                  <div className="flex item-center gap-2">
+                    <IoMdTime className="text-subMain w-3 h-3" />
+                    <span className="text-sm font-medium">
+                      {movie.durasi} 
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* Description */}
+              <p className="text-text text-sm leading-7">{movie.description}</p>
+              <div className="grid sm:grid-cols-5 grid-cols-3 gap-4 p-6 bg-main border border-gary-800 rounded-lg">
+                {/* Share */}
+                <div className="col-span-1 flex-colo border-r border-border">
+                  <button className="w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20">
+                    <FaShareAlt className="w-5 h-5 text-white" />
+                  </button>
+                </div>
+
+                {/* Language */}
+                <div className="col-span-2 flex-colo font-medium text-sm ">
+                  <p>
+                    Language : <span className="ml-2 truncate">{movie.language}</span>
+                  </p>
+                </div>
+
+                {/* Watch Button */}
+                <div className="sm:col-span-2 col-span-3 flex justify-end font-medium text-sm">
+                  <Link
+                    to="#"
+                    className="bg-dry hover:bg-subMain transitions border-2 border-subMain rounded-full flex-rows gap-4 w-full sm:py-3"
+                  >
+                    <FaPlay className="w-3 h-3" /> Watch
+                  </Link>
+                </div>
               </div>
+            </div>
+
+            {/* Download */}
+            <div className="col-span-2 md:mt-0 mt-2 flex justify-end">
+              <button className="md:w-1/4 w-full relative flex-colo bg-subMain hover:bg-transparent border-2 border-subMain transitions md:h-64 h-20 rounded font-medium ">
+                <div className="flex-rows font-medium text-sm uppercase tracking-widest absolute md:rotate-90">
+                  Download <FiLogIn className="w-6 h-6 ml-4" />
+                </div>
+              </button>
             </div>
           </div>
         </div>

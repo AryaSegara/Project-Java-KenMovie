@@ -5,6 +5,9 @@ import MoviePage from "./screens/Movie";
 import Contact from "./screens/Contact";
 import Login from "./screens/Login";
 import SingleMovie from "./screens/SingleMovie";
+import MovieList from "./dashboard/Admin/MovieList";
+import Dashboard from "./dashboard/Admin/Dashboard";
+import Categories from "./dashboard/Admin/Categories";
 function App() {
   return (
     <>
@@ -15,6 +18,10 @@ function App() {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/movielist" element={<MovieList />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/categories" element={<Categories />} />
+
     </Routes>
 
     </>

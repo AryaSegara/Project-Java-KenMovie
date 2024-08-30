@@ -3,6 +3,7 @@ import { Autoplay } from "swiper/modules";
 import { Movie } from "../data/MovieData";
 import { FaHeart, FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { IoMdTime } from "react-icons/io";
 
 export default function Banner() {
   return (
@@ -40,6 +41,10 @@ export default function Banner() {
                 <div className="flex item-center gap-2">
                   <FaRegCalendarAlt className="text-subMain w-3 h-3" />
                   <span className="text-sm font-medium">{movie.year}</span>
+                </div>
+                <div className="flex item-center gap-2">
+                  <IoMdTime className="text-subMain w-3 h-3" />
+                  <span className="text-sm font-medium">{movie.durasi}</span>
                 </div>
               </div>
 
