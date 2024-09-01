@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { FaSearch, FaHeart } from "react-icons/fa";
+import { FaSearch} from "react-icons/fa";
 import { CgUser } from "react-icons/cg";
 
 
@@ -50,12 +50,7 @@ export default function Navbar() {
             <NavLink to="/login" className={Hover}>
               <CgUser className="w-8 h-8" />
             </NavLink>
-            <NavLink to="/favorite" className={`${Hover} relative`}>
-              <FaHeart className="w-6 h-6" />
-              <div className="w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-5 -right-1">
-                2
-              </div>
-            </NavLink>
+
           </div>
         </div>
       </div>

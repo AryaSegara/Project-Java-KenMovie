@@ -1,11 +1,36 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { Movie } from "../data/MovieData";
 import { FaHeart, FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Banner() {
+
+  const [movie,setMovie] = useState([]);
+  const [category,setCategory] = useState([]);
+
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/movie")
+    .then((response) => response.json())
+    .then((data) => setMovie(data));
+  },[])
+
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/categories")
+    .then((response) => response.json())
+    .then((data) => setCategory(data));
+  },[])
+
+
+  const getKategoriNameById = (id) =>{
+    const kategori = category?.find((s) => s.idKategori === id);
+    return kategori?.name;
+  }
+
+
+
   return (
     <div className="relativew-full">
       <Swiper
@@ -21,10 +46,10 @@ export default function Banner() {
         }}
         className="w-full xl:h-96 bg-dry lg:h-64 h-48"
       >
-        {Movie.slice(0, 6).map((movie, index) => (
+        {movie.slice(0, 8).map((movie, index) => (
           <SwiperSlide key={index} className="relative rounded overlow-hidden">
             <img
-              src={`/images/${movie.image}`}
+              src={movie.image}
               alt={movie.name}
               className="w-full h-full object-cover"
             />
@@ -36,29 +61,26 @@ export default function Banner() {
 
               <div className="flex gap-5 items-center text-dryGray">
                 <div className="flex item-center gap-2">
-                  <span className="text-sm font-medium">{movie.category}</span>
+                  <span className="text-xl font-medium">{getKategoriNameById(movie.idKategori)}</span>
                 </div>
                 <div className="flex item-center gap-2">
                   <FaRegCalendarAlt className="text-subMain w-3 h-3" />
-                  <span className="text-sm font-medium">{movie.year}</span>
+                  <span className="text-xl font-medium">{movie.year}</span>
                 </div>
                 <div className="flex item-center gap-2">
                   <IoMdTime className="text-subMain w-3 h-3" />
-                  <span className="text-sm font-medium">{movie.durasi}</span>
+                  <span className="text-xl font-medium">{movie.durasi}</span>
                 </div>
               </div>
 
-              <div className="flex gap-5 items-center">
+              {/* <div className="flex gap-5 items-center">
                 <Link
                   to={`/movie/${movie.name}`}
                   className="bg-subMain hover:text-main transitions text-white px-8 py-3 rounded font-medium sm:text-sm text-xs"
                 >
                   Watch
                 </Link>
-                <button className="bg-white hover:text-subMain transitions text-white px-4 py-3 rounded text-sm bg-opacity-30">
-                  <FaHeart />
-                </button>
-              </div>
+              </div> */}
             </div>
           </SwiperSlide>
         ))}

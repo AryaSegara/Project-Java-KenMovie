@@ -4,11 +4,14 @@ import { IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-export default function MovieInfo({ movie }) {
+export default function MovieInfo({ movie, setModalOpen }) {
+
+  console.log(movie)
+  
   return (
     <div className="w-full xl:h-screen relative text-white">
       <img
-        src={`/images/${movie.image}`}
+        src={`${movie.image}`}
         alt={movie.name}
         className="w-full hidden xl:inline-block h-full object-cover "
       />
@@ -16,7 +19,7 @@ export default function MovieInfo({ movie }) {
         <div className="container px-3 mx-auto 2xl:px-32 xl:grid grid-cols-3 flex-colo py-10 lg:py-20 gap-8">
           <div className="w-full xl:col-span-1 xl:order-none order-last h-header bg-dry border border-gray-800 rounded-lg overflow-hidden">
             <img
-              src={`/images/${movie.image}`}
+              src={`${movie.image}`}
               alt={movie.name}
               className="w-full h-full object-cover"
             />
@@ -37,7 +40,7 @@ export default function MovieInfo({ movie }) {
                 <div className="flex gap-5 items-center text-dryGray">
                   <div className="flex item-center gap-2">
                     <span className="text-sm font-medium">
-                      {movie.category}
+                      {movie.idKategori}
                     </span>
                   </div>
                   <div className="flex item-center gap-2">
@@ -46,9 +49,7 @@ export default function MovieInfo({ movie }) {
                   </div>
                   <div className="flex item-center gap-2">
                     <IoMdTime className="text-subMain w-3 h-3" />
-                    <span className="text-sm font-medium">
-                      {movie.durasi} 
-                    </span>
+                    <span className="text-sm font-medium">{movie.durasi}</span>
                   </div>
                 </div>
               </div>
@@ -58,7 +59,10 @@ export default function MovieInfo({ movie }) {
               <div className="grid sm:grid-cols-5 grid-cols-3 gap-4 p-6 bg-main border border-gary-800 rounded-lg">
                 {/* Share */}
                 <div className="col-span-1 flex-colo border-r border-border">
-                  <button className="w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20">
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="w-10 h-10 flex-colo rounded-lg bg-white bg-opacity-20"
+                  >
                     <FaShareAlt className="w-5 h-5 text-white" />
                   </button>
                 </div>
@@ -66,7 +70,8 @@ export default function MovieInfo({ movie }) {
                 {/* Language */}
                 <div className="col-span-2 flex-colo font-medium text-sm ">
                   <p>
-                    Language : <span className="ml-2 truncate">{movie.language}</span>
+                    Language :{" "}
+                    <span className="ml-2 truncate">{movie.language}</span>
                   </p>
                 </div>
 

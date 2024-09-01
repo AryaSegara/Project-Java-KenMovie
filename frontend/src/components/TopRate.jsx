@@ -6,14 +6,22 @@ import {
 } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { Movie } from "../data/MovieData";
-import { FaHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Rating from "./Start";
+import { useEffect } from "react";
 
 export default function TopRate () {
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
+  const [movie, setMovie] = useState([]);
+
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/movie")
+    .then((response) => response.json())
+    .then((data) => setMovie(data));
+  },[])
+
 
   const classNames =
     "hover:bg-dry transitions text-sm rounded w-9 h-9 flex-colo bg-subMain text-white ";
@@ -35,29 +43,29 @@ export default function TopRate () {
           loop={true}
           modules={[Navigation, Autoplay]}
         >
-          {Movie.map((movie, index) => (
+          {movie.map((m, index) => (
             <SwiperSlide key={index}>
               <div className="p-4 h-rate hovered border border-boder bg-dry rounded-lg overflow-hidden">
                 <img
-                  src={`/images/${movie.image}`}
-                  alt={movie.name}
+                  src={m.image}
+                  alt={m.name}
                   className="w-full h-full object-cover rounded-lg"
                 />
 
                 <div className="px-4 hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0">
-                  <button className="h-12 w-12 flex-colo transitions hover:bg-subMain rounded-full bg-white bg-opacity-30 text-white">
+                  {/* <button className="h-12 w-12 flex-colo transitions hover:bg-subMain rounded-full bg-white bg-opacity-30 text-white">
                     <FaHeart />
-                  </button>
+                  </button> */}
 
                   <Link
-                    to={`/movie/${movie.name}`}
+                    to={`/movie/${m.name}`}
                     className="font-semibold text-xl trancute line-clamp-2"
                   >
-                    {movie.name}
+                    {m.name}
                   </Link>
 
                   <div className="flex gap-2 text-star">
-                    <Rating value={movie.rate} />
+                    <Rating value={m.rate} />
                   </div>
                 </div>
               </div>

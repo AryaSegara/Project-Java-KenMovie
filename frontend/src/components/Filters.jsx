@@ -1,4 +1,4 @@
-import { useState,Fragment } from "react";
+import { useState, Fragment } from "react";
 import {
   Listbox,
   ListboxButton,
@@ -89,20 +89,23 @@ export default function Filters() {
                         active ? "bg-subMain text-white" : "text-main"
                       }`
                     }
-                    value={iterm}>
-
-                    {({selected} ) => (
-                        <>
-                            <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
-                            {iterm.title}
-                            </span>
-                            {selected && (
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <FaCheck className="h-3 w-3" aria-hidden="true" />
-                                </span>
-                            )
-                        }
-                        </>
+                    value={iterm}
+                  >
+                    {({ selected }) => (
+                      <>
+                        <span
+                          className={`block truncate ${
+                            selected ? "font-semibold" : "font-normal"
+                          }`}
+                        >
+                          {iterm.title}
+                        </span>
+                        {selected && (
+                          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <FaCheck className="h-3 w-3" aria-hidden="true" />
+                          </span>
+                        )}
+                      </>
                     )}
                   </ListboxOption>
                 ))}
@@ -111,8 +114,6 @@ export default function Filters() {
           </div>
         </Listbox>
       ))}
-
-      
     </div>
   );
 }

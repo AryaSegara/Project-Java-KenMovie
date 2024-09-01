@@ -1,12 +1,18 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { BsFillGridFill } from "react-icons/bs";
-import { FaListAlt, FaUsers } from "react-icons/fa";
+import { FaListAlt } from "react-icons/fa";
 import { HiViewGridAdd } from "react-icons/hi";
 import { RiMovie2Fill } from "react-icons/ri";
 import Layout from "../layout/Layout";
 import { NavLink } from "react-router-dom";
+import { CgLogOut } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
-export default function SideBar({children}) {
+export default function SideBar({ children }) {
+  const navigate = useNavigate();
+  const redirectUrl = "/login";
+
   const SiderLinks = [
     {
       name: "Dashboard",
@@ -28,15 +34,10 @@ export default function SideBar({children}) {
       link: "/categories",
       icon: HiViewGridAdd,
     },
-    {
-      name: "Users",
-      link: "/users",
-      icon: FaUsers,
-    },
   ];
 
-  const active = "bg-dryGray text-subMain ";
-  const hover = "hover:text-white hover:bg-main";
+  const active = "bg-subMain text-white";
+  const hover = "text-white hover:bg-subMain";
   const inActive =
     "rounded font-medium text-sm transitions flex gap-3 items-center p-4";
   const getNavLinkClass = ({ isActive }) => {
@@ -50,10 +51,20 @@ export default function SideBar({children}) {
             {SiderLinks.map((link, index) => (
               <NavLink to={link.link} key={index} className={getNavLinkClass}>
                 <link.icon />
-                <span>{link.name}</span>                
+                <span>{link.name}</span>
               </NavLink>
             ))}
+            <button
+              onClick={() => {
+                localStorage.removeItem("user");
+                navigate(redirectUrl);
+              }}
+              className="flex gap-2 bg-main font-medium transitions hover:bg-subMain border-subMain text-white py-3 px-4 rounded"
+            >
+              <CgLogOut size={25} /> Logout
+            </button>
           </div>
+
           <div className="col-span-6 rounded-md bg-dry border border-gray-800 p-6">
             {children}
           </div>

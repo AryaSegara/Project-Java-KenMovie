@@ -1,9 +1,20 @@
 import { BsCollectionFill } from "react-icons/bs";
-import { Movie } from "../data/MovieData";
+// import { Movie } from "../data/MovieData";
+// import { Link } from "react-router-dom";
+// import { FaHeart } from "react-icons/fa";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
 
 export default function PopularMovie() {
+
+  const [movie,setMovie] = useState([]);
+
+  useEffect(() =>{
+    fetch("http://localhost:8080/api/movie")
+    .then((response) => response.json())
+    .then((data) => setMovie(data));
+  },[])
   return (
     <div className="my-16">
       <div className="w-full flex sm:gap-8 gap-4 items-center">
@@ -12,23 +23,23 @@ export default function PopularMovie() {
       </div>
 
       <div className="grid sm:mt-12 mt-6 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-        {Movie.slice(0, 5).map((movie, index) => (
+        {movie.slice(0, 8).map((movie, index) => (
           <div
             key={index}
             className="border border-border p-1 hover:scale-95 transitions relative rounded overflow-hidden"
           >
-            <Link to={`/movie/${movie?.name}`} className="w-full">
+            <Link to={`/movie/${movie.id}`} className="w-full">
               <img
-                src={`/images/${movie?.image}`}
+                src={movie?.image}
                 alt={movie.name}
                 className="w-full h-64 object-cover"
               />
             </Link>
             <div className="absolute flex-btn gap-2 bottom-0 left-0 right-0 bg-main bg-opacity-60 text-white px-4 py-3 ">
                 <h3 className="font-semibold truncate">{movie.name}</h3>
-                <button className="h-9 w-9 text-sm flex-colo transitions hover:bg-transparent border-2 border-subMain rounded-md bg-subMain text-white">
+                {/* <button className="h-9 w-9 text-sm flex-colo transitions hover:bg-transparent border-2 border-subMain rounded-md bg-subMain text-white">
                     <FaHeart />
-                </button>
+                </button> */}
             </div>
           </div>
         ))}
