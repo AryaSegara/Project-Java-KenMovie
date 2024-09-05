@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { FaHeart, FaRegCalendarAlt } from "react-icons/fa";
+import {  FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
 import { useState } from "react";
@@ -12,23 +13,16 @@ export default function Banner() {
   const [category,setCategory] = useState([]);
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/movie")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie`)
     .then((response) => response.json())
     .then((data) => setMovie(data));
   },[])
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/categories")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/categories`)
     .then((response) => response.json())
     .then((data) => setCategory(data));
   },[])
-
-
-  const getKategoriNameById = (id) =>{
-    const kategori = category?.find((s) => s.idKategori === id);
-    return kategori?.name;
-  }
-
 
 
   return (
@@ -61,7 +55,7 @@ export default function Banner() {
 
               <div className="flex gap-5 items-center text-dryGray">
                 <div className="flex item-center gap-2">
-                  <span className="text-xl font-medium">{getKategoriNameById(movie.idKategori)}</span>
+                  <span className="text-xl font-medium">{movie.idCategories.name}</span>
                 </div>
                 <div className="flex item-center gap-2">
                   <FaRegCalendarAlt className="text-subMain w-3 h-3" />
@@ -73,14 +67,14 @@ export default function Banner() {
                 </div>
               </div>
 
-              {/* <div className="flex gap-5 items-center">
+              <div className="flex gap-5 items-center">
                 <Link
-                  to={`/movie/${movie.name}`}
+                  to={`/movie/${movie.id}`}
                   className="bg-subMain hover:text-main transitions text-white px-8 py-3 rounded font-medium sm:text-sm text-xs"
                 >
                   Watch
                 </Link>
-              </div> */}
+              </div>
             </div>
           </SwiperSlide>
         ))}

@@ -2,12 +2,12 @@ import { FaPlay, FaRegCalendarAlt, FaShareAlt } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
+import Rating from "../Start";
 
 /* eslint-disable react/prop-types */
 export default function MovieInfo({ movie, setModalOpen }) {
+  // console.log(movie)
 
-  console.log(movie)
-  
   return (
     <div className="w-full xl:h-screen relative text-white">
       <img
@@ -56,6 +56,7 @@ export default function MovieInfo({ movie, setModalOpen }) {
 
               {/* Description */}
               <p className="text-text text-sm leading-7">{movie.description}</p>
+
               <div className="grid sm:grid-cols-5 grid-cols-3 gap-4 p-6 bg-main border border-gary-800 rounded-lg">
                 {/* Share */}
                 <div className="col-span-1 flex-colo border-r border-border">
@@ -78,7 +79,7 @@ export default function MovieInfo({ movie, setModalOpen }) {
                 {/* Watch Button */}
                 <div className="sm:col-span-2 col-span-3 flex justify-end font-medium text-sm">
                   <Link
-                    to="#"
+                    to={`/watch/${movie.id}`}
                     className="bg-dry hover:bg-subMain transitions border-2 border-subMain rounded-full flex-rows gap-4 w-full sm:py-3"
                   >
                     <FaPlay className="w-3 h-3" /> Watch
@@ -89,6 +90,10 @@ export default function MovieInfo({ movie, setModalOpen }) {
 
             {/* Download */}
             <div className="col-span-2 md:mt-0 mt-2 flex justify-end">
+              <span className="text-xl font-bold text-star pr-10">
+                {" "}
+                <Rating value={movie.rate} />
+              </span>
               <button className="md:w-1/4 w-full relative flex-colo bg-subMain hover:bg-transparent border-2 border-subMain transitions md:h-64 h-20 rounded font-medium ">
                 <div className="flex-rows font-medium text-sm uppercase tracking-widest absolute md:rotate-90">
                   Download <FiLogIn className="w-6 h-6 ml-4" />

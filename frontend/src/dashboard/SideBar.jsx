@@ -1,8 +1,6 @@
-/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
-import { HiViewGridAdd } from "react-icons/hi";
 import { RiMovie2Fill } from "react-icons/ri";
 import Layout from "../layout/Layout";
 import { NavLink } from "react-router-dom";
@@ -29,11 +27,11 @@ export default function SideBar({ children }) {
       link: "/addmovie",
       icon: RiMovie2Fill,
     },
-    {
-      name: "Categories",
-      link: "/categories",
-      icon: HiViewGridAdd,
-    },
+    // {
+    //   name: "Categories",
+    //   link: "/categories",
+    //   icon: HiViewGridAdd,
+    // },
   ];
 
   const active = "bg-subMain text-white";

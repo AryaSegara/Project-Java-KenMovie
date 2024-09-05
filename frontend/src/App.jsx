@@ -7,9 +7,10 @@ import Login from "./screens/Login";
 import SingleMovie from "./screens/SingleMovie";
 import MovieList from "./dashboard/Admin/MovieList";
 import Dashboard from "./dashboard/Admin/Dashboard";
-import Categories from "./dashboard/Admin/Categories";
+// import Categories from "./dashboard/Admin/Categories";
 import AddMovie from "./dashboard/Admin/AddMovie";
 import EditMovie from "./dashboard/Admin/EditMovie";
+import WatchPage from "./screens/WatchPage";
 function App() {
   return (
     <>
@@ -17,13 +18,15 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/movie" element={<MoviePage />} />
       <Route path="/movie/:id" element={<SingleMovie />}/>
+      <Route path="/watch/:id" element={<WatchPage />}/>
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact" element={<Contact />} />
+
       <Route path="/login" element={<Login />} />
 
       <Route path="/dashboard" element={<Dashboard />}  />
       <Route path="/movielist" element={<MovieList />} />
-      <Route path="/categories" element={<Categories />} />
+      {/* <Route path="/categories" element={<Categories />} /> */}
       <Route path="/addmovie" element={<AddMovie />} />
       <Route path="/editmovie/:id" element={<EditMovie />} />
     </Routes>

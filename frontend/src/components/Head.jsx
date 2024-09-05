@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function Head({title}) {
   return (
-    <div className="w-full bg-dryGray lg:h-64 relative overflowh-hidden rounded-md">
+    <div className="w-full bg-dryGray lg:h-64 h-40 relative overflowh-hidden rounded-md">
       <img
         src="/images/about1.jpg"
         alt="aboutus"

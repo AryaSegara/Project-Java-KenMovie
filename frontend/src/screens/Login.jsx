@@ -4,6 +4,7 @@ import { FiLogIn } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Cookies from "js-cookies"
 
 export default function Login() {
   // const [errorMessage, setErrorMessage] = useState("");
@@ -14,7 +15,6 @@ export default function Login() {
 
   const navigate = useNavigate();
   const redirectUrl = "/dashboard";
-  // const auth =
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,7 +23,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(
-      "http://localhost:8080/api/auth/login?email=" +
+      `${import.meta.env.VITE_API_BASE_URL}/api/auth/login?email=` +
         user.email +
         "&password=" +
         user.password +
@@ -40,6 +40,9 @@ export default function Login() {
         console.log(data);
         if (data) {
           localStorage.setItem("user", JSON.stringify(data));
+          const expire = new Date()
+          expire.setDate(expire.getDate() + 1)
+          Cookies.setItem("token", data, { expires: expire });
           navigate(redirectUrl);
         } else {
           alert("Email atau Password salah");

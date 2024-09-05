@@ -4,8 +4,7 @@ import { Fragment } from "react";
 import { useRef } from "react";
 import { IoClose } from "react-icons/io5";
 
-export default function MainModals({ modalOpen, setModalOpen, children }) 
-{
+export default function MainModals({ modalOpen, setModalOpen, children }) {
   const cancelButtonRef = useRef(null);
 
   return (
@@ -27,7 +26,10 @@ export default function MainModals({ modalOpen, setModalOpen, children })
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0"
             >
-              <Dialog className="fixed inset-0 bg-black opacity-30" onClose={() => setModalOpen(false)}/>
+              <Dialog
+                className="fixed inset-0 bg-black opacity-30"
+                onClose={() => setModalOpen(false)}
+              />
             </TransitionChild>
             <span
               className="inline-block h-screen align-middle"

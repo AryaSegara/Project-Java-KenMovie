@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend.model.Categories;
 import com.example.backend.model.Movie;
 import com.example.backend.repository.CategoriesRepository;
 import com.example.backend.repository.MovieRepository;
 
 @RestController
 @RequestMapping("api/movie")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true", allowPrivateNetwork = "true")
 
 public class MovieController {
 
@@ -54,8 +55,20 @@ public class MovieController {
 
 
     @PutMapping("{id}")
-    public String updateMovie(@PathVariable Long id) {
-        movieRepository.findById(id).orElse(null);
+    public String updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+        Movie existingMovie = movieRepository.findById(movie.getId()).orElse(null);
+        existingMovie.setName(movie.getName());
+        existingMovie.setLanguage(movie.getLanguage());
+        existingMovie.setDescription(movie.getDescription());
+        existingMovie.setDurasi(movie.getDurasi());
+        existingMovie.setImage(movie.getImage());
+        existingMovie.setYear(movie.getYear());
+        existingMovie.setRate(movie.getRate());
+        Categories newCategories = new Categories();
+        newCategories.setId(id);
+        existingMovie.setIdCategories(newCategories);
+        System.out.println(existingMovie);
+        movieRepository.save(existingMovie);
         return "Movie updated successfully";
     }
 

@@ -22,7 +22,7 @@ export default function AddMovie() {
   const redirectUrl = "/dashboard";
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/categories")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/categories`)
       .then((response) => response.json())
       .then((data) => setSelectedCategory(data));
   }, []);
@@ -41,7 +41,7 @@ export default function AddMovie() {
               console.log(newMovie);
               // return;
               fetch(
-                "http://localhost:8080/api/movie?idKategori=" +
+                `${import.meta.env.VITE_API_BASE_URL}/api/movie?idKategori=` +
                   newMovie.idKategori,
                 {
                   method: "POST",
@@ -175,6 +175,7 @@ export default function AddMovie() {
                   }
                   required
                   type="number"
+                  max={5}
                   placeholder="Image URL"
                   className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
                 />

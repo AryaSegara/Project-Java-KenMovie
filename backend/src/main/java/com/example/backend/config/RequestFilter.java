@@ -36,8 +36,10 @@ public class RequestFilter extends OncePerRequestFilter {
     public void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain)
             throws IOException, ServletException {
-
+        // String auth = request.getHeaders("Authorization").toString();
+        // System.out.println("ini adalah auth : "+auth);
         Cookie[] cookies = request.getCookies();
+        // System.out.println(cookies);
 
         if (cookies != null) {
             Long id = null;
@@ -47,6 +49,7 @@ public class RequestFilter extends OncePerRequestFilter {
                     String token = cookie.getValue();
                     String subject;
                     try {
+                        System.out.println(token);
                         subject = jwtService.verify(token);
                         id = Long.parseLong(subject);
                     } catch (Exception e) {

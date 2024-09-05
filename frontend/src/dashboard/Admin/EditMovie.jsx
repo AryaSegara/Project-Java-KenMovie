@@ -10,6 +10,7 @@ export default function EditMovie() {
   const [seletedCategory, setSelectedCategory] = useState([]);
   const { id } = useParams();
   const [newMovie, setNewMovie] = useState({
+    id: 0,
     name: "",
     image: "",
     durasi: "",
@@ -24,12 +25,13 @@ export default function EditMovie() {
   const redirectUrl = "/dashboard";
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/movie")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie`)
       .then((response) => response.json())
       .then((data) => {
         data.map((movie) => {
           if (movie.id == id) {
             setNewMovie({
+              id: movie.id,
               name: movie.name,
               image: movie.image,
               durasi: movie.durasi,
@@ -37,15 +39,15 @@ export default function EditMovie() {
               language: movie.language,
               description: movie.description,
               rate: movie.rate,
-              idKategori: movie.idKategori,
+              idKategori: movie.idCategories,
             });
           }
         });
       });
-  }, []);
-  
+    }, []);
+    // console.log(newMovie)
   useEffect(() => {
-    fetch("http://localhost:8080/api/categories")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/categories`)
       .then((response) => response.json())
       .then((data) => setSelectedCategory(data));
   }, []);
@@ -61,24 +63,34 @@ export default function EditMovie() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(newMovie);
-              fetch("http://localhost:8080/api/movie/" + id, {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newMovie),
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  console.log(data);
-                  if (data.id) {
-                    alert("Movie created successfully");
-                    navigate(redirectUrl);
-                  } else {
-                    alert("Failed to update movie");
-                  }
-                });
+              // console.log(newMovie);
+              // return;
+              try{
+
+                fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie/${newMovie.idKategori.id}`, {
+                  method: "PUT",
+                  credentials: 'include',
+
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization : "Bearer " + JSON.parse(localStorage.getItem("user"))
+                  },
+                  body: JSON.stringify(newMovie),
+                })
+                
+                  // .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                    if (data.ok) {
+                      alert("Movie updated successfully");
+                      navigate(redirectUrl);
+                    } else {
+                      alert("Failed to update movie");
+                    }
+                  });
+              }catch(err){
+                console.log(err);
+              }
             }}
             className="w-full flex-col gap-6 space-y-6"
           >
@@ -182,6 +194,22 @@ export default function EditMovie() {
                   rows={6}
                 />
               </div>
+
+              <div className="w-full text-sm">
+                <label className="text-border font-semibold">Rate</label>
+                <input
+                  id="rate"
+                  name="rate"
+                  value={newMovie.rate}
+                  onChange={(e) =>
+                    setNewMovie({ ...newMovie, rate: parseInt(e.target.value) })
+                  }
+                  required
+                  type="number"
+                  placeholder="Image URL"
+                  className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
+                />
+              </div>
             </div>
 
             <div className="text-sm w-full">
@@ -192,18 +220,22 @@ export default function EditMovie() {
               <select
                 name="idKategori"
                 id="idKategori"
-                value={newMovie.idKategori}
+                defaultValue={newMovie.idKategori?.name}
                 className="w-full mt-2 px-6 py-4 text-text bg-main border border-boder rounded"
                 onChange={(e) => {
-                  console.log(e.target.value);
+                  const kategory = JSON.parse(e.target.value);
+                  console.log(kategory);
                   setNewMovie({
                     ...newMovie,
-                    idKategori: parseInt(e.target.value),
+                    idKategori: {
+                      id : kategory.id,
+                      name : kategory.name
+                    },
                   });
                 }}
               >
                 {seletedCategory.map((c, i) => (
-                  <option key={i} value={c.id}>
+                  <option key={i} value={JSON.stringify(c)}>
                     {c.name}
                   </option>
                 ))}

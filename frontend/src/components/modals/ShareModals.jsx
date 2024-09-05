@@ -1,5 +1,11 @@
 /* eslint-disable react/prop-types */
-import { FaFacebook, FaPinterest, FaTelegram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaPinterest,
+  FaTelegram,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 import MainModals from "./MainModals";
 import { FacebookShareButton } from "react-share";
 import { TwitterShareButton } from "react-share";
@@ -8,7 +14,6 @@ import { WhatsappShareButton } from "react-share";
 import { PinterestShareButton } from "react-share";
 import { MdEmail } from "react-icons/md";
 import { EmailShareButton } from "react-share";
-// import { Movie } from "../../data/MovieData";
 
 export default function ShareModals({ modalOpen, setModalOpen, movie }) {
   const shareData = [
@@ -25,18 +30,17 @@ export default function ShareModals({ modalOpen, setModalOpen, movie }) {
       shareButton: TelegramShareButton,
     },
     {
-        icon: FaWhatsapp,
-        shareButton: WhatsappShareButton,
+      icon: FaWhatsapp,
+      shareButton: WhatsappShareButton,
     },
     {
-        icon : FaPinterest,
-        shareButton: PinterestShareButton,
+      icon: FaPinterest,
+      shareButton: PinterestShareButton,
     },
     {
-        icon: MdEmail,
-        shareButton : EmailShareButton
-    }
-
+      icon: MdEmail,
+      shareButton: EmailShareButton,
+    },
   ];
 
   const url = `${window.location.protocol}//${window.location.host}/movie/${movie.name}`;

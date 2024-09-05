@@ -2,32 +2,47 @@ import { FaRegListAlt } from "react-icons/fa";
 import SideBar from "../SideBar";
 import { HiViewGridAdd } from "react-icons/hi";
 import Table from "../../components/Table";
-// import { Movie } from "../../data/MovieData";
 import { useState } from "react";
 import { useEffect } from "react";
 
 export default function Dashboard() {
-    const [movie,setMovie] = useState([])
+  const [movie, setMovie] = useState([]);
+  const [category, setCategory] = useState([]);
 
-    useEffect(() =>{
-      fetch("http://localhost:8080/api/movie")
-      .then((response) => response.json())
-      .then((data) => setMovie(data));
-    },[])
+  const fetchMovie = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie`,{
+
+    });
+    const data = await response.json();
+    console.log(response)
+    setMovie(data);
+  };
+
+  const fetchCategories = async ()=>{
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
+    const data = await response.json();
+    setCategory(data);
+  }
+
+  useEffect(() => {
+    fetchMovie();
+    fetchCategories();
+  }, []);
   const DashboardData = [
     {
       bg: "bg-orange-600",
       icon: FaRegListAlt,
       title: "Total Movie",
-      total: 90,
+      total: movie.length,
     },
     {
       bg: "bg-blue-600",
       icon: HiViewGridAdd,
       title: "Total Categories",
-      total: 8,
+      total: category.length,
     },
   ];
+
 
   if (localStorage.getItem("user") === null) {
     window.location.href = "/login";
@@ -56,7 +71,7 @@ export default function Dashboard() {
         <h3 className="tex-md font-medium italic my-6 text-border">
           Recent Movie
         </h3>
-        <Table data={movie} />
+        <Table data={movie} fetchMovie={fetchMovie} />
       </SideBar>
     );
   }

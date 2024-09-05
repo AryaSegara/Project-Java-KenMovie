@@ -1,5 +1,7 @@
 package com.example.backend.config;
 
+// import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,27 +17,32 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, RequestFilter requestFilter) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((auth) -> {
-                    // Kalo mau akses harus ada token
-                    // auth.requestMatchers(HttpMethod.GET, "/").authenticated();
-                    auth.requestMatchers(HttpMethod.GET, "/api/auth/sign-out").authenticated();
+  @Bean
+  public SecurityFilterChain securityFilterChain(
+    HttpSecurity http,
+    RequestFilter requestFilter
+  ) throws Exception {
+    return http
+      .csrf(AbstractHttpConfigurer::disable)
+      .authorizeHttpRequests(auth -> {
+        // Kalo mau akses harus ada token
+        auth.requestMatchers(HttpMethod.PUT, "/api/movie").authenticated();
+        auth.requestMatchers(HttpMethod.DELETE, "/api/movie").authenticated();
+        // auth.requestMatchers(HttpMethod.GET, "/api/movie").authenticated();
 
-                    // auth.requestMatchers(HttpMethod.GET, "/api/planets").authenticated();
+        // Boleh akses tanpa token
+        auth.anyRequest().permitAll();
+      })
+      .addFilterBefore(
+        requestFilter,
+        UsernamePasswordAuthenticationFilter.class
+      )
+      .build();
+  }
 
-                    // Boleh akses tanpa token
-                    auth.anyRequest().permitAll();
-                })
-                .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
-
-    //menentukan tipe enkripsi paswordnya
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+  //menentukan tipe enkripsi paswordnya
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+  }
 }

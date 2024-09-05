@@ -1,7 +1,4 @@
 import { BsCollectionFill } from "react-icons/bs";
-// import { Movie } from "../data/MovieData";
-// import { Link } from "react-router-dom";
-// import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -11,7 +8,7 @@ export default function PopularMovie() {
   const [movie,setMovie] = useState([]);
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/movie")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie`)
     .then((response) => response.json())
     .then((data) => setMovie(data));
   },[])

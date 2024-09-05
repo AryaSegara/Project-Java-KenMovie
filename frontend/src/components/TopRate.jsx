@@ -6,7 +6,6 @@ import {
 } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-// import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Rating from "./Start";
 import { useEffect } from "react";
@@ -17,7 +16,7 @@ export default function TopRate () {
   const [movie, setMovie] = useState([]);
 
   useEffect(() =>{
-    fetch("http://localhost:8080/api/movie")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/movie`)
     .then((response) => response.json())
     .then((data) => setMovie(data));
   },[])
@@ -53,9 +52,6 @@ export default function TopRate () {
                 />
 
                 <div className="px-4 hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0">
-                  {/* <button className="h-12 w-12 flex-colo transitions hover:bg-subMain rounded-full bg-white bg-opacity-30 text-white">
-                    <FaHeart />
-                  </button> */}
 
                   <Link
                     to={`/movie/${m.name}`}

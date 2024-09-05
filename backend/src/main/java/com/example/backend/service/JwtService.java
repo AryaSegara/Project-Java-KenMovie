@@ -38,6 +38,7 @@ public class JwtService {
     public String verify(String token) throws ParseException, JOSEException {
         JWSObject jwsObject = JWSObject.parse(token);
         JWSVerifier verifier = new MACVerifier(secretKey);
+        System.out.println(token);
         if (jwsObject.verify(verifier)) {
             return jwsObject.getPayload().toString();
         } else {
