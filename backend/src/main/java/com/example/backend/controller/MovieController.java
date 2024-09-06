@@ -64,7 +64,7 @@ public class MovieController {
         Categories newCategories = new Categories();
         newCategories.setId(id);
         existingMovie.setIdCategories(newCategories);
-        System.out.println(existingMovie);
+        // System.out.println(existingMovie);
         movieRepository.save(existingMovie);
         return "Movie updated successfully";
     }
