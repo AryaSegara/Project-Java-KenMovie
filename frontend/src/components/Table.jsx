@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Head = "text-xs text-left text-main font-semibold px-6 py-2 uppercase";
@@ -12,10 +12,10 @@ const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
 
 const Rows = ({ m, i, fetchMovie }) => {
   const [category, setCategory] = useState([]);
-  const [movie, setMovie] = useState([]);
+  // const [movie, setMovie] = useState([]);
 
-  const navigate = useNavigate();
-  const redirectUrl = "/dashboard";
+  // const navigate = useNavigate();
+  // const redirectUrl = "/dashboard";
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_BASE_URL}/api/categories`)
