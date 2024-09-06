@@ -10,8 +10,11 @@ KENMOVIE : Website Film - Film Bioskop
 ## Fitur
 
 **Admin**
+**ShareLink**
+**SortBy :name,year,rate**
+**SortByKategori**
+**Search**
 
- - Kelola Movie
 
 ## Diagram ERD
 
