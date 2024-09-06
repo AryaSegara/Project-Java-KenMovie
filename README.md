@@ -15,7 +15,7 @@ KENMOVIE : Website Film - Film Bioskop
 
 ## Diagram ERD
 
-![Diagram KENMOVIE](Diagram ERD.png)
+![Diagram KENMOVIE](DiagramErd.png)
 
 ## Tech Stack
 
