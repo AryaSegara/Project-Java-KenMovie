@@ -31,10 +31,6 @@ export default function MovieCasts() {
             1024: {
               slidesPerView: 4,
             },
-            // 1280: {
-            //   slidesPerView: 5,
-            //   spaceBetween: 30,
-            // },
           }}
         >
           {userData.map((user, i) => (

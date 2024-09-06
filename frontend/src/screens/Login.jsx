@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import Cookies from "js-cookies"
 
 export default function Login() {
-  // const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",

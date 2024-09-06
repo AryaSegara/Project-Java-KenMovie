@@ -27,9 +27,6 @@ public class MovieController {
 
     @Autowired
     CategoriesRepository categoriesRepository;
-    // public CategoriesRepository(CategoriesRepository categoriesRepository){
-        //     this.categoriesRepository = categoriesRepository;
-        // }
         
     @Autowired
     MovieRepository movieRepository;

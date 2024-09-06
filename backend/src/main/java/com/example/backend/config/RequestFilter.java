@@ -49,7 +49,7 @@ public class RequestFilter extends OncePerRequestFilter {
                     String token = cookie.getValue();
                     String subject;
                     try {
-                        System.out.println(token);
+                        // System.out.println(token);
                         subject = jwtService.verify(token);
                         id = Long.parseLong(subject);
                     } catch (Exception e) {
